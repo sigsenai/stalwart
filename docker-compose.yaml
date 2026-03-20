@@ -20,7 +20,13 @@ services:
       - stalwart-data:/opt/stalwart
       - /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
       - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
-
+    networks:
+      - default
+      - coolify
 
 volumes:
   stalwart-data:
+
+networks:
+  coolify:
+    external: true
