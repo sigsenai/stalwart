@@ -1,6 +1,6 @@
 services:
   stalwart:
-    image: stalwartlabs/stalwart:v0.12.6
+    image: stalwartlabs/stalwart:latest
     container_name: stalwart-mail
     restart: always
     tty: true
@@ -14,6 +14,7 @@ services:
       - "4190:4190"
       - "110:110"
       - "995:995"
+      - "127.0.0.1:8084:8080"
     expose:
       - "8080"
     volumes:
@@ -22,7 +23,4 @@ services:
       - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
 
 volumes:
-  - stalwart-data:/opt/stalwart
-  - /etc/letsencrypt/live/mail.sigsensystems.com/fullchain.pem:/etc/stalwart/tls/fullchain.pem:ro
-  - /etc/letsencrypt/live/mail.sigsensystems.com/privkey.pem:/etc/stalwart/tls/privkey.pem:ro
-  - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml  # or any host path you like
+  stalwart-data:
