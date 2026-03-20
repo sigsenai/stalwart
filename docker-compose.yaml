@@ -19,4 +19,6 @@ services:
     stdin_open: true
 
 volumes:
-  stalwart-data:
+  - stalwart-data:/opt/stalwart
+  - /etc/letsencrypt/live/mail.sigsensystems.com/fullchain.pem:/etc/stalwart/tls/fullchain.pem:ro
+  - /etc/letsencrypt/live/mail.sigsensystems.com/privkey.pem:/etc/stalwart/tls/privkey.pem:ro
