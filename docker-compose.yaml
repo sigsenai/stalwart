@@ -20,12 +20,7 @@ services:
       - stalwart-data:/opt/stalwart
       - /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
       - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
-    healthcheck:
-      test: ["CMD-SHELL", "python3 - <<'PY'\nimport urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/', timeout=5)\nPY"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-      start_period: 60s
+
 
 volumes:
   stalwart-data:
