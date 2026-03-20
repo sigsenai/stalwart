@@ -2,6 +2,10 @@ services:
   stalwart:
     image: stalwartlabs/stalwart:latest
     container_name: stalwart-mail
+    restart: always
+    tty: true
+    stdin_open: true
+
     ports:
       - "25:25"
       - "587:587"
@@ -11,24 +15,14 @@ services:
       - "4190:4190"
       - "110:110"
       - "995:995"
-      #- "8084:8080"  # Web admin UI
+
+    expose:
+      - "8080"
+
     volumes:
       - stalwart-data:/opt/stalwart
-
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.stalwart.rule=Host(`mail.sigsensystems.com`)"
-      - "traefik.http.routers.stalwart.entrypoints=http,https"
-      - "traefik.http.routers.stalwart.tls=true"
-      - "traefik.http.routers.stalwart.tls.certresolver=letsencrypt"
-      - "traefik.http.services.stalwart.loadbalancer.server.port=8080"
-
-    restart: always
-    tty: true
-    stdin_open: true
+      - /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
+      - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
 
 volumes:
-  - stalwart-data:/opt/stalwart
-  - /etc/letsencrypt/live/mail.sigsensystems.com/fullchain.pem:/etc/stalwart/tls/fullchain.pem:ro
-  - /etc/letsencrypt/live/mail.sigsensystems.com/privkey.pem:/etc/stalwart/tls/privkey.pem:ro
-  - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml  # or any host path you like
+  stalwart-data:
