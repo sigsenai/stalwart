@@ -11,7 +11,7 @@ services:
       - "4190:4190"
       - "110:110"
       - "995:995"
-      - "8080:8080"  # Web admin UI
+      - "8084:8080"  # Web admin UI
     volumes:
       - stalwart-data:/opt/stalwart
     restart: always
