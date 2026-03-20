@@ -1,6 +1,6 @@
 services:
-  stalwart-mail:
-    image: stalwartlabs/mail-server:latest
+  stalwart:
+    image: stalwartlabs/stalwart:latest
     container_name: stalwart-mail
     ports:
       - "25:25"
@@ -8,11 +8,15 @@ services:
       - "465:465"
       - "143:143"
       - "993:993"
-      - "4190:4190"  # Sieve/Managesieve if needed
+      - "4190:4190"
       - "110:110"
       - "995:995"
+      - "8080:8080"  # Web admin UI
     volumes:
-      - /path/to/stalwart/data:/opt/stalwart-mail  # persistent storage
+      - stalwart-data:/opt/stalwart
     restart: always
     tty: true
     stdin_open: true
+
+volumes:
+  stalwart-data:
