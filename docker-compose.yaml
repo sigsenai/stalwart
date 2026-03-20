@@ -5,7 +5,6 @@ services:
     restart: always
     tty: true
     stdin_open: true
-
     ports:
       - "25:25"
       - "587:587"
@@ -15,10 +14,9 @@ services:
       - "4190:4190"
       - "110:110"
       - "995:995"
-
+      - "127.0.0.1:8084:8080"
     expose:
       - "8080"
-
     volumes:
       - stalwart-data:/opt/stalwart
       - /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
