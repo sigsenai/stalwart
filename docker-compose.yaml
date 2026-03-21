@@ -18,11 +18,15 @@ services:
       - "8080"
     volumes:
       - stalwart-data:/opt/stalwart
-      - /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
-      - /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
+      #- /etc/letsencrypt/live/mail.sigsensystems.com:/etc/stalwart/tls:ro
+      #- /root/stalwart-config.toml:/opt/stalwart/etc/config.toml:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     networks:
       - default
       - coolify
+
+    environment:
+      - HOSTNAME=mail.sigsensystems.com
 
 volumes:
   stalwart-data:
